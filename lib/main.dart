@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:zapbill/pages/intro_page.dart';
 import 'package:zapbill/pages/splash_page.dart';
 
 void main() {
@@ -26,9 +27,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: Colors.white,
         useMaterial3: true,
       ),
-      home: Scaffold(
-        body: Center(child: Text("Hello World"),),
-      ),
+      home: IntroPage(),
     );
   }
 }
