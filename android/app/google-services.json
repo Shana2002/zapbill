@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "976951193008",
+    "project_id": "zapbill-f0995",
+    "storage_bucket": "zapbill-f0995.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:976951193008:android:02a919f6535fc2db91fa75",
+        "android_client_info": {
+          "package_name": "com.example.zapbill"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAh5ajs11uuu8eL5Z4UEpkn0kjzkqNYHG4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
