@@ -47,6 +47,7 @@ class _IntroPageState extends State<IntroPage> {
         children: [
           _introBackground(),
           _contentContainer(),
+          _skipBtn(),
         ],
       ),
     );
@@ -151,6 +152,33 @@ class _IntroPageState extends State<IntroPage> {
             },
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _skipBtn() {
+    return SafeArea(
+      child: Align(
+        alignment: Alignment.topRight,
+        child: GestureDetector(
+          child: Container(
+            margin: EdgeInsets.only(right: 20),
+            width: 70,
+            height: 30,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(25),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Icon(Icons.skip_next_outlined),
+                Text("Skip"),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }
