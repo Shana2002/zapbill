@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:zapbill/models/item_model.dart';
 import 'package:zapbill/util/device_size.dart';
 import 'package:zapbill/widgets/custom_text_input.dart';
 import 'package:zapbill/widgets/rounded_button.dart';
@@ -11,11 +12,30 @@ class NewBill extends StatefulWidget {
 }
 
 class _NewBillState extends State<NewBill> {
+  late List<ItemModel> _items;
   late DeviceSize _deviceSize;
+
+  @override
+  void initState() {
+    super.initState();
+    _items = [
+      ItemModel(productName: "productName", qty: 1, price: 1200),
+      ItemModel(productName: "productName2", qty: 5, price: 1500),
+      ItemModel(productName: "productName3", qty: 4, price: 130),
+      ItemModel(productName: "productName3", qty: 4, price: 130),
+      ItemModel(productName: "productName3", qty: 4, price: 130),
+      ItemModel(productName: "productName3", qty: 4, price: 130),
+      ItemModel(productName: "productName3", qty: 4, price: 130),
+      ItemModel(productName: "productName3", qty: 4, price: 130),
+      ItemModel(productName: "productName3", qty: 4, price: 130),
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
     _deviceSize = DeviceSize(context: context);
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: _buildUi(),
     );
   }
@@ -111,7 +131,14 @@ class _NewBillState extends State<NewBill> {
     return Container(
       height: _deviceSize.deviceHeight * 0.45,
       width: _deviceSize.deviceWidth,
-      color: Colors.red,
+      padding: EdgeInsets.symmetric(
+          vertical: _deviceSize.deviceHeight * 0.01,
+          horizontal: _deviceSize.deviceWidth * 0.02),
+      decoration: BoxDecoration(
+        color: Color.fromRGBO(227, 240, 175, 1.0),
+        borderRadius: BorderRadius.circular(14),
+      ),
+      child: _itemListContainer(),
     );
   }
   // Add item button
@@ -120,4 +147,40 @@ class _NewBillState extends State<NewBill> {
     return RoundedButton(_deviceSize.deviceHeight * 0.07,
         _deviceSize.deviceWidth, "Add Item", () {});
   }
+
+  Widget _itemListContainer() {
+    return ListView.builder(
+      itemCount: _items.length,
+      itemBuilder: (context, index) {
+        return Container(
+          decoration: BoxDecoration(
+            color: Color.fromRGBO(93, 185, 150, 1.0),
+            borderRadius: BorderRadius.circular(14),
+          ),
+          margin: EdgeInsets.symmetric(vertical: 2),
+          child: ListTile(
+            title: Text(
+              _items[index].productName,
+              style:
+                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            ),
+            subtitle: Text(
+              "Price : ${_items[index].price}",
+              style:
+                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            ),
+            trailing: Text(
+              "Qty : ${_items[index].qty}",
+              style: TextStyle(
+                  fontSize: 15,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  
 }
