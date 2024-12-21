@@ -5,8 +5,8 @@ import 'package:zapbill/util/device_size.dart';
 import 'package:zapbill/widgets/custom_text_input.dart';
 import 'package:zapbill/widgets/rounded_button.dart';
 
-class LoginPage extends StatelessWidget {
-  LoginPage({super.key});
+class RegisterPage extends StatelessWidget {
+  RegisterPage({super.key});
   late DeviceSize _deviceSize;
   late NavigationService _navigation;
 
@@ -116,9 +116,17 @@ class LoginPage extends StatelessWidget {
           child: Column(
             children: [
               CustomTextInput(
-                  hintText: "User Name",
+                  hintText: "Name",
                   regEx: r"",
                   obscureText: false,
+                  onSaved: (value) {}),
+              SizedBox(
+                height: _deviceSize.deviceHeight * 0.03,
+              ),
+              CustomTextInput(
+                  hintText: "User name",
+                  regEx: r"",
+                  obscureText: true,
                   onSaved: (value) {}),
               SizedBox(
                 height: _deviceSize.deviceHeight * 0.03,
@@ -129,19 +137,6 @@ class LoginPage extends StatelessWidget {
                   obscureText: true,
                   onSaved: (value) {})
             ],
-          ),
-        ),
-        SizedBox(
-          height: _deviceSize.deviceHeight * 0.02,
-        ),
-        SizedBox(
-          width: _deviceSize.deviceWidth,
-          child: Container(
-            child: Text(
-              "Forgot Password",
-              textAlign: TextAlign.end,
-              style: TextStyle(color: Color.fromRGBO(18, 82, 2, 1)),
-            ),
           ),
         ),
         SizedBox(
@@ -205,16 +200,16 @@ class LoginPage extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Text("Don’t have an account ?"),
+        Text("have an account ?"),
         SizedBox(
           width: 10,
         ),
         GestureDetector(
           onTap: () {
-            _navigation.navigationToRoute("/register");
+            _navigation.navigationToRoute("/login");
           },
           child: Text(
-            "Register here",
+            "Login here",
             style: TextStyle(color: Color.fromRGBO(18, 82, 2, 1)),
           ),
         )

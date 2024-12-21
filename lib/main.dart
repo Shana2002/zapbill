@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:zapbill/pages/intro_page.dart';
 import 'package:zapbill/pages/login_page.dart';
+import 'package:zapbill/pages/register_page.dart';
 import 'package:zapbill/pages/splash_page.dart';
 import 'package:zapbill/services/navigation_service.dart';
 
@@ -38,6 +39,7 @@ class MyApp extends StatelessWidget {
       routes: {
         "/start": (BuildContext _context) => IntroPage(),
         "/login": (BuildContext _context) => LoginPage(),
+        "/register": (BuildContext _context) => RegisterPage(),
       },
     );
   }
