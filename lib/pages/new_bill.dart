@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:zapbill/models/item_list_model.dart';
 import 'package:zapbill/models/item_model.dart';
 import 'package:zapbill/util/device_size.dart';
+import 'package:zapbill/widgets/add_item_bottom.dart';
 import 'package:zapbill/widgets/custom_text_input.dart';
 import 'package:zapbill/widgets/rounded_button.dart';
 
@@ -12,23 +15,27 @@ class NewBill extends StatefulWidget {
 }
 
 class _NewBillState extends State<NewBill> {
+  late ItemListModel _itemsList =
+      GetIt.instance.registerSingleton<ItemListModel>(ItemListModel());
   late List<ItemModel> _items;
   late DeviceSize _deviceSize;
 
   @override
   void initState() {
     super.initState();
-    _items = [
-      ItemModel(productName: "productName", qty: 1, price: 1200),
-      ItemModel(productName: "productName2", qty: 5, price: 1500),
-      ItemModel(productName: "productName3", qty: 4, price: 130),
-      ItemModel(productName: "productName3", qty: 4, price: 130),
-      ItemModel(productName: "productName3", qty: 4, price: 130),
-      ItemModel(productName: "productName3", qty: 4, price: 130),
-      ItemModel(productName: "productName3", qty: 4, price: 130),
-      ItemModel(productName: "productName3", qty: 4, price: 130),
-      ItemModel(productName: "productName3", qty: 4, price: 130),
-    ];
+    _items = _itemsList.itemList;
+
+    // _items = [
+    //   ItemModel(productName: "productName", qty: 1, price: 1200),
+    //   ItemModel(productName: "productName2", qty: 5, price: 1500),
+    //   ItemModel(productName: "productName3", qty: 4, price: 130),
+    //   ItemModel(productName: "productName3", qty: 4, price: 130),
+    //   ItemModel(productName: "productName3", qty: 4, price: 130),
+    //   ItemModel(productName: "productName3", qty: 4, price: 130),
+    //   ItemModel(productName: "productName3", qty: 4, price: 130),
+    //   ItemModel(productName: "productName3", qty: 4, price: 130),
+    //   ItemModel(productName: "productName3", qty: 4, price: 130),
+    // ];
   }
 
   @override
@@ -119,7 +126,7 @@ class _NewBillState extends State<NewBill> {
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
         ),
         Text(
-          "1650",
+          _itemsList.sumTotal().toString(),
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
         ),
       ],
@@ -144,8 +151,11 @@ class _NewBillState extends State<NewBill> {
   // Add item button
 
   Widget _addItemBtn() {
-    return RoundedButton(_deviceSize.deviceHeight * 0.07,
-        _deviceSize.deviceWidth, "Add Item", () {});
+    return RoundedButton(
+        _deviceSize.deviceHeight * 0.07, _deviceSize.deviceWidth, "Add Item",
+        () {
+      _displayBottomSheet();
+    });
   }
 
   Widget _itemListContainer() {
@@ -182,5 +192,12 @@ class _NewBillState extends State<NewBill> {
     );
   }
 
-  
+  _displayBottomSheet() {
+    return AddItemBottom(
+            onClick: () {
+              setState(() {});
+            },
+            context: context)
+        .displayBottomSheet();
+  }
 }
