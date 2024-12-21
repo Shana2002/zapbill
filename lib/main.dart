@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:zapbill/pages/home_page.dart';
 import 'package:zapbill/pages/intro_page.dart';
+import 'package:zapbill/pages/invoice_conform_page.dart';
 import 'package:zapbill/pages/login_page.dart';
 import 'package:zapbill/pages/new_bill.dart';
 import 'package:zapbill/pages/register_page.dart';
@@ -43,6 +44,7 @@ class MyApp extends StatelessWidget {
         "/login": (BuildContext _context) => LoginPage(),
         "/register": (BuildContext _context) => RegisterPage(),
         "/newbill":(BuildContext _context)=> NewBill(),
+        "/invoiceconform": (BuildContext _context) => InvoiceConformPage()
       },
     );
   }

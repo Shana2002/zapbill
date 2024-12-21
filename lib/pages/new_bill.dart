@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:zapbill/models/item_list_model.dart';
 import 'package:zapbill/models/item_model.dart';
+import 'package:zapbill/services/navigation_service.dart';
 import 'package:zapbill/util/device_size.dart';
 import 'package:zapbill/widgets/add_item_bottom.dart';
 import 'package:zapbill/widgets/custom_text_input.dart';
+import 'package:zapbill/widgets/item_view_card.dart';
 import 'package:zapbill/widgets/rounded_button.dart';
 
 class NewBill extends StatefulWidget {
@@ -15,27 +17,17 @@ class NewBill extends StatefulWidget {
 }
 
 class _NewBillState extends State<NewBill> {
-  late ItemListModel _itemsList =
+  final ItemListModel _itemsList =
       GetIt.instance.registerSingleton<ItemListModel>(ItemListModel());
   late List<ItemModel> _items;
   late DeviceSize _deviceSize;
+  late NavigationService _navigation;
 
   @override
   void initState() {
     super.initState();
+    _navigation = GetIt.instance.get<NavigationService>();
     _items = _itemsList.itemList;
-
-    // _items = [
-    //   ItemModel(productName: "productName", qty: 1, price: 1200),
-    //   ItemModel(productName: "productName2", qty: 5, price: 1500),
-    //   ItemModel(productName: "productName3", qty: 4, price: 130),
-    //   ItemModel(productName: "productName3", qty: 4, price: 130),
-    //   ItemModel(productName: "productName3", qty: 4, price: 130),
-    //   ItemModel(productName: "productName3", qty: 4, price: 130),
-    //   ItemModel(productName: "productName3", qty: 4, price: 130),
-    //   ItemModel(productName: "productName3", qty: 4, price: 130),
-    //   ItemModel(productName: "productName3", qty: 4, price: 130),
-    // ];
   }
 
   @override
@@ -71,7 +63,7 @@ class _NewBillState extends State<NewBill> {
 
   // Customer details Container
   Widget _customerDetails() {
-    return Container(
+    return SizedBox(
       height: _deviceSize.deviceHeight * 0.20,
       width: _deviceSize.deviceWidth,
       child: Column(
@@ -109,7 +101,9 @@ class _NewBillState extends State<NewBill> {
       _deviceSize.deviceHeight * 0.05,
       _deviceSize.deviceWidth,
       "Send Invoice",
-      () {},
+      () {
+        _navigation.navigationToRoute("/invoiceconform");
+      },
       fontSize: 18,
     );
   }
@@ -162,32 +156,7 @@ class _NewBillState extends State<NewBill> {
     return ListView.builder(
       itemCount: _items.length,
       itemBuilder: (context, index) {
-        return Container(
-          decoration: BoxDecoration(
-            color: Color.fromRGBO(93, 185, 150, 1.0),
-            borderRadius: BorderRadius.circular(14),
-          ),
-          margin: EdgeInsets.symmetric(vertical: 2),
-          child: ListTile(
-            title: Text(
-              _items[index].productName,
-              style:
-                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-            ),
-            subtitle: Text(
-              "Price : ${_items[index].price}",
-              style:
-                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-            ),
-            trailing: Text(
-              "Qty : ${_items[index].qty}",
-              style: TextStyle(
-                  fontSize: 15,
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold),
-            ),
-          ),
-        );
+        return ItemViewCard(item: _items[index]);
       },
     );
   }
