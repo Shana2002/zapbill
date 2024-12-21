@@ -31,7 +31,11 @@ class _InvoiceConformPageState extends State<InvoiceConformPage> {
     _netTotal = _listItems.sumTotal();
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(onPressed: () {}, icon: Icon(Icons.arrow_back)),
+        leading: IconButton(
+            onPressed: () {
+              _navigation.goBack();
+            },
+            icon: Icon(Icons.arrow_back)),
       ),
       resizeToAvoidBottomInset: false,
       body: _buildUi(),
@@ -157,7 +161,11 @@ class _InvoiceConformPageState extends State<InvoiceConformPage> {
               Container(
                   width: _deviceSize.deviceWidth * 0.71,
                   child: _invoicePriceRow("Discount", _discont, true)),
-              IconButton(onPressed: () {}, icon: Icon(Icons.edit_square))
+              IconButton(
+                  onPressed: () {
+                    _showDiscountBottomModelPage();
+                  },
+                  icon: Icon(Icons.edit_square))
             ],
           ),
           _invoicePriceRow("Sub Total", _netTotal, false),
@@ -188,6 +196,90 @@ class _InvoiceConformPageState extends State<InvoiceConformPage> {
           style: _style,
         ),
       ],
+    );
+  }
+
+  Future _showDiscountBottomModelPage() {
+    TextEditingController _discountController = TextEditingController();
+    _discountController.text = _discont.toString();
+    return showModalBottomSheet(
+      context: context,
+      isScrollControlled: true, // Allows keyboard to adjust the modal size
+      builder: (context) {
+        return Padding(
+          padding: EdgeInsets.only(
+            bottom:
+                MediaQuery.of(context).viewInsets.bottom, // Adjust for keyboard
+          ),
+          child: Container(
+            width: double.infinity,
+            height: MediaQuery.of(context).size.height * 0.4,
+            color: Colors.white,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Text(
+                    "Set Discount",
+                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        double currentDiscount =
+                            double.tryParse(_discountController.text) ?? 0.0;
+                        if (currentDiscount > 0) {
+                          _discountController.text =
+                              (currentDiscount - 1).toStringAsFixed(2);
+                        }
+                      },
+                      icon: Icon(
+                        Icons.remove,
+                        size: 25,
+                      ),
+                    ),
+                    SizedBox(
+                      width: 100,
+                      child: TextField(
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 25),
+                        controller: _discountController,
+                        keyboardType: TextInputType.number,
+                        textAlign: TextAlign.center,
+                        decoration: InputDecoration(
+                          border:
+                              OutlineInputBorder(borderSide: BorderSide.none),
+                          hintText: "Enter discount",
+                        ),
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        double currentDiscount =
+                            double.tryParse(_discountController.text) ?? 0.0;
+                        _discountController.text =
+                            (currentDiscount + 1).toStringAsFixed(2);
+                      },
+                      icon: Icon(
+                        Icons.add,
+                        size: 25,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 20),
+                RoundedButton(_deviceSize.deviceHeight * 0.06,
+                    _deviceSize.deviceWidth * 0.7, "Apply Discount", () {}),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }
