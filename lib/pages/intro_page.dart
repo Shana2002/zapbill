@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:zapbill/pages/login_page.dart';
+import 'package:zapbill/services/navigation_service.dart';
 import 'package:zapbill/util/device_size.dart';
 import 'package:zapbill/widgets/rounded_button.dart';
 
@@ -11,6 +14,7 @@ class IntroPage extends StatefulWidget {
 
 class _IntroPageState extends State<IntroPage> {
   late DeviceSize deviceSize;
+  late NavigationService navigationService;
   int indexOfContent = 0;
 
   final List<Map<String, String>> contentData = [
@@ -41,6 +45,7 @@ class _IntroPageState extends State<IntroPage> {
 
   @override
   Widget build(BuildContext context) {
+    navigationService = GetIt.instance.get<NavigationService>();
     deviceSize = DeviceSize(context: context);
     return Scaffold(
       body: Stack(
@@ -147,7 +152,7 @@ class _IntroPageState extends State<IntroPage> {
                   curve: Curves.easeInOut,
                 );
               } else {
-                Navigator.pop(context); // Or navigate to another page
+                navigationService.navigationToPage(LoginPage()); // Or navigate to another page
               }
             },
           ),
