@@ -35,4 +35,28 @@ class CustomTextInput extends StatelessWidget {
   }
 }
 
+class CustomeSizedTextInput extends CustomTextInput {
+  final double width;
+  final double height;
+  CustomeSizedTextInput({
+    required Function(String) onSaved,
+    required bool obscureText,
+    required String hintText,
+    required String regEx,
+    required this.height,
+    required this.width,
+  }) : super(
+            hintText: hintText,
+            regEx: regEx,
+            obscureText: obscureText,
+            onSaved: onSaved);
 
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: height,
+      width: width,
+      child: Center(child: super.build(context)),
+    );
+  }
+}

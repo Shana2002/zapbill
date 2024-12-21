@@ -148,10 +148,10 @@ class LoginPage extends StatelessWidget {
           height: _deviceSize.deviceHeight * 0.03,
         ),
         RoundedButton(
-            height: _deviceSize.deviceHeight * 0.07,
-            width: _deviceSize.deviceWidth,
-            name: "Login",
-            onPressed: () {}),
+            _deviceSize.deviceHeight * 0.07,
+            _deviceSize.deviceWidth,
+            "Login",
+            () {}),
       ],
     );
   }

@@ -140,12 +140,12 @@ class _IntroPageState extends State<IntroPage> {
             textAlign: TextAlign.center,
           ),
           RoundedButton(
-            height: deviceSize.deviceHeight * 0.07,
-            width: deviceSize.deviceWidth * 0.8,
-            name: indexOfContent < contentData.length - 1
+            deviceSize.deviceHeight * 0.07,
+            deviceSize.deviceWidth * 0.8,
+            indexOfContent < contentData.length - 1
                 ? "Next"
                 : "Get Started",
-            onPressed: () {
+            () {
               if (indexOfContent < contentData.length - 1) {
                 _pageController.nextPage(
                   duration: const Duration(milliseconds: 500),

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:zapbill/models/company_model.dart';
 import 'package:zapbill/models/customer_model.dart';
 import 'package:zapbill/models/invoice_model.dart';
+import 'package:zapbill/services/navigation_service.dart';
 import 'package:zapbill/util/device_size.dart';
 import 'package:zapbill/widgets/rounded_button.dart';
 import 'package:zapbill/widgets/rounded_image.dart';
@@ -16,7 +18,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late DeviceSize _deviceSize;
-
+  NavigationService _navigator = GetIt.instance.get<NavigationService>();
   late List<InvoiceModel> _invoices;
 
   @override
@@ -173,10 +175,12 @@ class _HomePageState extends State<HomePage> {
 
   Widget _newBillBtn() {
     return RoundedButton(
-        height: _deviceSize.deviceHeight * 0.07,
-        width: _deviceSize.deviceWidth,
-        name: "New Bill",
-        onPressed: () {});
+        _deviceSize.deviceHeight * 0.07,
+        _deviceSize.deviceWidth,
+        "New Bill",
+        () {
+          _navigator.navigationToRoute("/newbill");
+        });
   }
 
   Widget _invoceList() {

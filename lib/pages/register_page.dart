@@ -144,11 +144,8 @@ class RegisterPage extends StatelessWidget {
         SizedBox(
           height: _deviceSize.deviceHeight * 0.03,
         ),
-        RoundedButton(
-            height: _deviceSize.deviceHeight * 0.07,
-            width: _deviceSize.deviceWidth,
-            name: "Login",
-            onPressed: () {}),
+        RoundedButton(_deviceSize.deviceHeight * 0.07, _deviceSize.deviceWidth,
+            "Login", () {}),
       ],
     );
   }
