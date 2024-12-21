@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:zapbill/models/company_model.dart';
+import 'package:zapbill/pages/home_page.dart';
 import 'package:zapbill/services/navigation_service.dart';
 import 'package:zapbill/util/device_size.dart';
 import 'package:zapbill/widgets/custom_text_input.dart';
@@ -206,7 +208,13 @@ class RegisterPage extends StatelessWidget {
         ),
         GestureDetector(
           onTap: () {
-            _navigation.navigationToRoute("/login");
+            CompanyModel company = CompanyModel(
+                userName: "hansaka",
+                email: "hansaka@gmail.com",
+                companyName: "Ravishan's Holdings",
+                companyEmail: "companyEmail",
+                companyMobile: "companyMobile");
+            _navigation.navigationToPage(HomePage(company: company));
           },
           child: Text(
             "Login here",

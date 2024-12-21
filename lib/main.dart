@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:zapbill/pages/home_page.dart';
 import 'package:zapbill/pages/intro_page.dart';
 import 'package:zapbill/pages/login_page.dart';
 import 'package:zapbill/pages/register_page.dart';
