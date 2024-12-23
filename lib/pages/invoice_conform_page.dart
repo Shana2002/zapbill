@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:zapbill/models/item_list_model.dart';
@@ -29,6 +30,7 @@ class _InvoiceConformPageState extends State<InvoiceConformPage> {
     _deviceSize = DeviceSize(context: context);
     _items = _listItems.itemList;
     _netTotal = _listItems.sumTotal();
+    // _subTotal = _netTotal;
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -140,6 +142,8 @@ class _InvoiceConformPageState extends State<InvoiceConformPage> {
 
   // price conformation menu
   Widget _priceEditContainer() {
+    _subTotal = _netTotal;
+    print(_subTotal);
     return Container(
       width: _deviceSize.deviceWidth,
       height: _deviceSize.deviceHeight * 0.20,
@@ -168,7 +172,14 @@ class _InvoiceConformPageState extends State<InvoiceConformPage> {
                   icon: Icon(Icons.edit_square))
             ],
           ),
-          _invoicePriceRow("Sub Total", _netTotal, false),
+          _invoicePriceRow(
+              "Sub Total",
+              _discont > 0
+                  ? (double.tryParse((_netTotal - (_netTotal * _discont / 100))
+                          .toString()) ??
+                      _netTotal)
+                  : _netTotal,
+              false),
         ],
       ),
     );
@@ -177,7 +188,9 @@ class _InvoiceConformPageState extends State<InvoiceConformPage> {
   // send invoce button
   Widget _sendButton() {
     return RoundedButton(_deviceSize.deviceHeight * 0.07,
-        _deviceSize.deviceWidth, "Send Invoice", () {});
+        _deviceSize.deviceWidth, "Send Invoice", () {
+      _loadingActions();
+    });
   }
 
   Widget _invoicePriceRow(String _name, double _value, bool discount) {
@@ -274,12 +287,41 @@ class _InvoiceConformPageState extends State<InvoiceConformPage> {
                 ),
                 SizedBox(height: 20),
                 RoundedButton(_deviceSize.deviceHeight * 0.06,
-                    _deviceSize.deviceWidth * 0.7, "Apply Discount", () {}),
+                    _deviceSize.deviceWidth * 0.7, "Apply Discount", () {
+                  setState(() {
+                    _discont = double.tryParse(_discountController.text) ?? 0;
+                    // if (_discont > 0) {
+                    //   _subTotal = _netTotal - (_netTotal * _discont / 100);
+                    // }
+                    print(_subTotal);
+                  });
+                  Navigator.pop(context);
+                }),
               ],
             ),
           ),
         );
       },
     );
+  }
+
+  Future _loadingActions() {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return CupertinoAlertDialog(
+            title: Text("Loading"),
+            content: Center(
+              child: Container(
+                margin: EdgeInsets.symmetric(
+                    vertical: _deviceSize.deviceHeight * 0.02),
+                width: _deviceSize.deviceWidth * 0.1,
+                height: _deviceSize.deviceWidth * 0.1,
+                child: CircularProgressIndicator(),
+              ),
+            ),
+          );
+        },
+        barrierDismissible: false);
   }
 }
